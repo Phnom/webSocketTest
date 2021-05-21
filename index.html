@@ -13,11 +13,8 @@
   <h1>test send data</h1>
   <input id="message" type="text" placeholder="Type message here">
   <button onclick="sendMessage()">Send</button>
-  <p id="skurt">Skurt</p>
-
-  <h1>Messages</h1>
-  <ul id="skurt2">
-    <li>Skurt</li>
+  <ul id="skurt">
+    <li>Hello world!</li>
   </ul>
 
   <script>
@@ -32,8 +29,7 @@
       })
 
       websocket.addEventListener('message', (event) => {
-        console.log(event.data)
-        document.querySelector("#skurt").innerHTML = event.data
+        document.querySelector("#skurt").innerHTML += `<li>${event.data}</li>`
       })
 
       websocket.addEventListener('close', () => {

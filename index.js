@@ -9,7 +9,7 @@ server.on('connection', function(ws) {
     ws,
     id: IDCounter,
     username: `User ${IDCounter}`
-  }  
+  }
 
   IDCounter++
   clients.push(client)
@@ -17,13 +17,18 @@ server.on('connection', function(ws) {
   ws.send('Connected to websocket server!')
 
   ws.on('message', (data) => {
-    ws.send(data.toUpperCase())
+    console.log(data)
+    console.log("skurt")
+    clients.forEach(client => {
+      client.ws.send(data)
+    })
   })
     
   ws.on('close', (closeCode) => {
     console.log('Client disconnected...')
   })
 
+  /* 
   ws.on('message', (data) => {
     const payload = JSON.parse(data)
     switch(payload.type) {
@@ -32,4 +37,5 @@ server.on('connection', function(ws) {
         break
       }
   })
+  */
 })

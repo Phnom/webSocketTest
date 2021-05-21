@@ -1,39 +1,10 @@
-const WebSocket = require('ws')
-const server = new WebSocket.Server({ port: 9000 })
+const express = require('express')
+const http = require('http')
 
-let IDCounter = 1
-const clients = []
+const app = express()
+const server = http.createServer(app)
+const initSockets = require('./webbsockets')
 
-server.on('connection', function(ws) {
-  const client = {
-    ws,
-    id: IDCounter,
-    username: `User ${IDCounter}`
-  }
+initSockets(server)
 
-  IDCounter++
-  clients.push(client)
-
-  ws.send('Connected to websocket server!')
-
-  ws.on('message', (data) => {
-    clients.forEach(client => {
-      client.ws.send(data)
-    })
-  })
-    
-  ws.on('close', (closeCode) => {
-    console.log('Client disconnected...')
-  })
-
-  /* 
-  ws.on('message', (data) => {
-    const payload = JSON.parse(data)
-    switch(payload.type) {
-      case 'SET_USERNAME':
-        // heres the stuff
-        break
-      }
-  })
-  */
-})
+server.listen(9000)

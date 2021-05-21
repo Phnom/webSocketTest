@@ -7,9 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>test send logs</h1>
-  <button onclick="connect()">Connect</button>
-  
+
   <h1>test send data</h1>
   <input id="message" type="text" placeholder="Type message here">
   <button onclick="sendMessage()">Send</button>
@@ -19,9 +17,9 @@
 
   <script>
     let websocket = null
-    const message = document.querySelector('#message')
+    const message = document.querySelector('#message');
 
-    const connect = () => {
+    (function () {
       websocket = new WebSocket('ws://localhost:9000')
 
       websocket.addEventListener('open', () => {
@@ -36,7 +34,7 @@
         console.log('Disconnected from websocket')
         websocket = null
       })
-    }
+    })()
 
     const sendMessage = () => {
       if (websocket) {

@@ -17,8 +17,6 @@ server.on('connection', function(ws) {
   ws.send('Connected to websocket server!')
 
   ws.on('message', (data) => {
-    console.log(data)
-    console.log("skurt")
     clients.forEach(client => {
       client.ws.send(data)
     })
